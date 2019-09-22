@@ -14,20 +14,13 @@ RUN apt-get install unzip && apt-get clean
 RUN apt-get install openjdk-11-jdk -y && apt-get clean
 RUN update-alternatives --config javac
 RUN mkdir /opt/sonar/
-RUN cd /opt/sonar/
-RUN wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.9.1.zip
-RUN unzip -d /opt/sonar/ sonarqube-7.9.1.zip
+RUN cd /opt/sonar/ && wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.9.1.zip && unzip -d /opt/sonar/ sonarqube-7.9.1.zip
 RUN adduser --disabled-password --gecos "12345" sonarqubeuser
 #RUN adduser --system --no-create-home --group --disabled-login sonarqubeUser
-RUN cd /opt/sonar/sonarqube-7.9.1/conf/
-RUN ls
-RUN sed -i '16csonar.jdbc.username=${userJdbc}' ./sonar.properties
-RUN sed -i '17csonar.jdbc.password=${passJdbc}' ./sonar.properties
-RUN sed -i '34csonar.jdbc.url=jdbc:postgresql://${host}:${port}/sonar?currentSchema=public' ./sonar.properties
+RUN cd /opt/sonar/sonarqube-7.9.1/conf/ && ls && sed -i '16csonar.jdbc.username=${userJdbc}' ./sonar.properties && sed -i '17csonar.jdbc.password=${passJdbc}' ./sonar.properties && sed -i '34csonar.jdbc.url=jdbc:postgresql://${host}:${port}/sonar?currentSchema=public' ./sonar.properties
 RUN chown -R sonarqubeuser:sonarqubeuser /opt/sonar/
 RUN su sonarqubeuser
-RUN cd /opt/sonar/sonarqube-7.9.1/bin/linux-x86-64/
-RUN ./sonar.sh console
+RUN cd /opt/sonar/sonarqube-7.9.1/bin/linux-x86-64/ && ./sonar.sh console
 EXPOSE 9000
 
 
