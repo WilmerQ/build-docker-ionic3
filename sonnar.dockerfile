@@ -28,7 +28,7 @@ RUN chown -R sonarqubeuser:sonarqubeuser /opt/sonar/
 RUN cd /opt/sonar/sonarqube-7.9.1/conf/ && ls && sed -i '16csonar.jdbc.username='$userJdbc2 ./sonar.properties && sed -i '17csonar.jdbc.password='$passJdbc2 ./sonar.properties && sed -i '34csonar.jdbc.url=jdbc:postgresql://'$host2':'$port2'/sonar?currentSchema=public' ./sonar.properties  && cd /opt/sonar/sonarqube-7.9.1/bin/linux-x86-64/ && ./sonar.sh console
 #RUN cd /opt/sonar/sonarqube-7.9.1/conf/ && ls && sed -i '16csonar.jdbc.username='$userJdbc2 ./sonar.properties && sed -i '17csonar.jdbc.password='$passJdbc2 ./sonar.properties && sed -i '34csonar.jdbc.url=jdbc:postgresql://'$host2':'$port2'/sonar?currentSchema=public' ./sonar.properties && chown -R sonarqubeuser:sonarqubeuser /opt/sonar/ && su sonarqubeuser && cd /opt/sonar/sonarqube-7.9.1/bin/linux-x86-64/ && ./sonar.sh console
 COPY ./sonar-entrypoint.sh /
-RUN chmod +x /sonar-entrypoint.sh
-ENTRYPOINT [ "sonar-entrypoint.sh" ]
+RUN chmod +x /sonar-entrypoint.sh && ls
+ENTRYPOINT [ "/sonar-entrypoint.sh" ]
 CMD ["variable1", "variable2", "superman"]
 EXPOSE 9000
