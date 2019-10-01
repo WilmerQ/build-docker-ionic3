@@ -30,5 +30,5 @@ RUN cd /opt/sonar/sonarqube-7.9.1/conf/ && ls && sed -i '16csonar.jdbc.username=
 EXPOSE 9000
 COPY ./sonar-entrypoint.sh /opt/
 RUN chmod +x /opt/sonar-entrypoint.sh && cd /opt/ && ls
-ENTRYPOINT ["/bin/bash", "-c","/opt/sonar-entrypoint.sh" ]
+ENTRYPOINT ["/bin/bash","/opt/sonar-entrypoint.sh" ]
 CMD ["variable1", "variable2", "superman"]
